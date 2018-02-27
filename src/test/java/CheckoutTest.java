@@ -1,5 +1,6 @@
 import it.intre.reloadedCamp.java.Checkout;
 import it.intre.reloadedCamp.java.UglyCheckout;
+import it.intre.reloadedCamp.kotlin.ImprovedCheckout;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -78,7 +79,7 @@ class CheckoutTest {
     static class Checkouts implements ArgumentsProvider {
         @Override
         public Stream<? extends Arguments> provideArguments(ExtensionContext context) throws Exception {
-            return Stream.of(new UglyCheckout())
+            return Stream.of(new UglyCheckout(), new ImprovedCheckout())
                     .map(Arguments::of);
         }
     }
