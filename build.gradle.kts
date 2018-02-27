@@ -28,7 +28,11 @@ repositories {
 
 dependencies {
     compile(kotlinModule("stdlib-jdk8", kotlin_version))
-    testCompile("junit", "junit", "4.12")
+    testCompile("org.junit.jupiter", "junit-jupiter-api", "5.1.0")
+    testCompile("org.junit.jupiter", "junit-jupiter-params", "5.1.0")
+    testRuntime("org.junit.platform", "junit-platform-launcher", "1.1.0")
+    testRuntime("org.junit.vintage", "junit-vintage-engine", "5.1.0")
+    testRuntime("org.junit.jupiter", "junit-jupiter-engine", "5.1.0")
 }
 
 configure<JavaPluginConvention> {
