@@ -1,5 +1,11 @@
 package it.intre.reloadedCamp.kotlin
 
+import it.intre.reloadedCamp.java.Checkout
 
-class ImprovedCheckout {
+class ImprovedCheckout: Checkout {
+
+    override fun pay(items: List<String>, offers: Map<String, Map.Entry<Int, Int>>): Int {
+        TODO("not implemented")
+    }
+
 }
