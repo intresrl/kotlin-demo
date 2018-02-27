@@ -5,7 +5,7 @@ import it.intre.reloadedCamp.java.Checkout
 class ImprovedCheckout: Checkout {
 
     override fun pay(items: List<String>, offers: Map<String, Map.Entry<Int, Int>>): Int {
-        TODO("not implemented")
+        return 0
     }
 
 }
