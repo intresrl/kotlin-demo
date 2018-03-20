@@ -72,8 +72,22 @@ class CheckoutTest {
 
         int expectedPrice = 455;
         assertEquals(expectedPrice, checkout.pay(
-                forFruits(
-                        apple, pear, apple, pear, lychee, apple, banana, pineapple), ll));
+                forFruits(apple, pear, apple, pear, lychee, apple, banana, pineapple),
+                ll));
+    }
+
+    @ParameterizedTest
+    @ArgumentsSource(Checkouts.class)
+    void repeatedOffer(Checkout checkout) {
+        String apple = "apple";
+        String pear = "pear";
+
+        Map<String, Entry<Integer, Integer>> ll = withOffers(2, apple, 75);
+
+        int expectedPrice = 2 * 75 + 30;
+        assertEquals(expectedPrice, checkout.pay(
+                forFruits(apple, apple, apple, apple, pear),
+                ll));
     }
 
     static class Checkouts implements ArgumentsProvider {
