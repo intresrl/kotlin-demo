@@ -1,25 +1,13 @@
 package it.intre.reloadedCamp.kotlin
 
-const val APPLE = "apple"
-const val PEAR = "pear"
-const val PINEAPPLE = "pineapple"
-const val BANANA = "banana"
-
 class ImprovedCheckout : Checkout {
 
-    private val prices = mapOf(
-            APPLE to 50,
-            PEAR to 30,
-            PINEAPPLE to 220,
-            BANANA to 60
-    )
-
-    override fun pay(items: List<String>, offers: Map<String, Pair<Int, Int>>) =
+    override fun pay(items: List<Item>, offers: Map<Item, Pair<Int, Int>>) =
             items
                     .groupBy { it }
                     .mapValues { (_, v) -> v.size }
                     .entries
-                    .sumBy { (item, quantity) -> payItem(offers[item], quantity, prices[item] ?: 0) }
+                    .sumBy { (item, quantity) -> payItem(offers[item], quantity, item.price) }
 
     private fun payItem(offer: Pair<Int, Int>?, quantity: Int, price: Int) =
             when (offer) {
