@@ -22,13 +22,20 @@ class ImprovedCheckout : Checkout {
         val quantities = items
                 .groupBy { it }
                 .mapValues { (_, v) -> v.size }
+                .toMutableMap()
 
+        var offerTotal = 0
         for ((item, offer) in offers) {
-            // TODO check for offers
+            val (offerQuantity, offerPrice) = offer
+            val quantity = quantities[item]
+            if (quantity != null && offerQuantity <= quantity) {
+                offerTotal += offerPrice
+                quantities[item] = quantity - offerQuantity
+            }
         }
 
-        return prices.entries
-                .sumBy { (item, price) -> (quantities[item] ?: 0) * price }
+        return offerTotal +
+                prices.entries.sumBy { (item, price) -> (quantities[item] ?: 0) * price }
     }
 
 }
