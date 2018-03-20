@@ -2,6 +2,7 @@ import it.intre.reloadedCamp.kotlin.Checkout
 import it.intre.reloadedCamp.kotlin.ImprovedCheckout
 import it.intre.reloadedCamp.kotlin.Item
 import it.intre.reloadedCamp.kotlin.Item.*
+import it.intre.reloadedCamp.kotlin.Offer
 import org.junit.Assert.assertEquals
 import org.junit.jupiter.api.extension.ExtensionContext
 import org.junit.jupiter.params.ParameterizedTest
@@ -13,13 +14,10 @@ import java.util.stream.Stream
 
 internal class CheckoutTest {
 
-    private val withNoOffers = HashMap<Item, Pair<Int, Int>>()
+    private val withNoOffers = mutableListOf<Offer>()
 
-    private fun withOffers(quantity: Int, fruit: Item, offerPrice: Int): MutableMap<Item, Pair<Int, Int>> {
-        val offers = mutableMapOf<Item, Pair<Int, Int>>()
-        offers[fruit] = Pair(quantity, offerPrice)
-        return offers
-    }
+    private fun withOffers(quantity: Int, fruit: Item, offerPrice: Int) =
+            mutableListOf(Offer(fruit, quantity, offerPrice))
 
     private fun forFruits(vararg fruits: Item): List<Item> {
         return Arrays.asList(*fruits)
@@ -53,7 +51,7 @@ internal class CheckoutTest {
     @ArgumentsSource(Checkouts::class)
     fun fruits(checkout: Checkout) {
         val ll = withOffers(3, APPLE, 130)
-        ll[PEAR] = Pair(2, 45)
+        ll += Offer(PEAR, 2, 45)
 
         val expectedPrice = 455
         assertEquals(expectedPrice.toLong(), checkout.pay(
