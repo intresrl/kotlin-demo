@@ -29,8 +29,9 @@ class ImprovedCheckout : Checkout {
             val (offerQuantity, offerPrice) = offer
             val quantity = quantities[item]
             if (quantity != null && offerQuantity <= quantity) {
-                offerTotal += offerPrice
-                quantities[item] = quantity - offerQuantity
+                val repeat = quantity / offerQuantity
+                offerTotal += repeat * offerPrice
+                quantities[item] = quantity - repeat * offerQuantity
             }
         }
 
